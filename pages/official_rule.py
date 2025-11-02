@@ -1,7 +1,7 @@
 """
-公式ルールページ（データ同梱なし）
-- まずセッション内の画像（ZIP/個別で読み込まれたもの）を表示します。
-- 無い場合はアップロードUIを表示します。
+公式ルールページ
+- セッション内の画像（ZIP/個別で読み込まれたもの）があれば表示します。
+- 画像が無い場合は何も表示せず、ページ（タイトル・キャプション）のみを示します。
 """
 
 import base64
@@ -18,17 +18,8 @@ st.caption(get_official_rule_subheader_text())
 img_bytes: bytes | None = st.session_state.get("rule_image_bytes")
 
 if img_bytes is None:
-    st.markdown(
-        "- 画像ファイル（PNG/JPG）をアップロードするか、トップページで ZIP/個別ファイルからデータセットを読み込んでください。"
-    )
-    up = st.file_uploader(
-        "公式ルールの画像をアップロード",
-        type=["png", "jpg", "jpeg"],
-        accept_multiple_files=False,
-    )
-    if not up:
-        st.stop()
-    img_bytes = up.getvalue()
+    # 画像が無い場合はなにも表示しない（ページ遷移は可能）
+    st.stop()
 
 try:
     b64 = base64.b64encode(img_bytes).decode("utf-8")

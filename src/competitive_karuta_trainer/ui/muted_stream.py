@@ -28,8 +28,13 @@ def render_muted_stream(target: Pair | None) -> None:
     current_tid = st.session_state.get("target_id")
     already = st.session_state.get("last_streamed_target_id") == current_tid
 
-    # 既に完了していれば再表示しない
+    # 既に同じターゲットのストリーミングが完了している場合は、同じ場所に全文を静的表示
     if already:
+        text_full = target.kami
+        holder.markdown(
+            f'<div style="text-align:center;font-size:1.8rem;line-height:1.8;">{html_escape(text_full)}</div>',
+            unsafe_allow_html=True,
+        )
         return
 
     # ストリーミング実行（非ブロッキングに近い体感で、短時間のみブロック）

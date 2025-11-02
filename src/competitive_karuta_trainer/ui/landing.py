@@ -22,17 +22,14 @@ def render_upload_ui(reset_game: Callable[[list[Pair]], None]) -> None:
     st.header("データセットをアップロード")
     st.markdown(
         """
-        data フォルダを zip にするか、以下の5ファイルをアップロードしてください。
-        - かな: hyakunin_issyu.csv
-        - 漢字: hyakunin_issyu_kanji.csv
-        - Tips: kimariji.csv
-        - 公式ルール画像: official_rule.png
-        - 設定: config.toml
+        単一CSV形式のみ対応しています。
+        - 必須: CSV 1 枚
+        - 任意: 公式ルール画像（PNG）、設定（config.toml）
         """
     )
     mode = st.radio(
         "方法",
-        options=["ZIP（推奨）", "個別ファイル（CSV×3 + PNG + TOML）"],
+        options=["ZIP（推奨）", "個別ファイル（CSV 必須、PNG/TOML 任意）"],
         horizontal=True,
     )
     err_holder = st.empty()
@@ -69,13 +66,13 @@ def render_upload_ui(reset_game: Callable[[list[Pair]], None]) -> None:
                 st.session_state.muted = bool(st.session_state.settings.get("muted", False))
                 st.session_state.last_streamed_target_id = None
                 reset_game(use_pairs)
-                st.success("データセットを読み込みました（4ファイル検証済み）。")
+                st.success("データセットを読み込みました。")
                 st.rerun()
             except Exception as e:
                 err_holder.error(f"読み込みに失敗しました: {e}")
     else:
         ups = st.file_uploader(
-            "必須4ファイル（CSV×3 + PNG）+ 任意で config.toml を選択",
+            "必須: CSV / 任意: PNG, config.toml",
             type=["csv", "png", "toml"],
             accept_multiple_files=True,
         )

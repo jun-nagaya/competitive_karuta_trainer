@@ -56,7 +56,7 @@ def get_tips_subheader_text(default: str = "決まり字などの一覧です。
     return default
 
 
-def get_official_rule_subheader_text(default: str = "競技かるたの公式ルール参考画像です。") -> str:
+def get_official_rule_subheader_text(default: str = "") -> str:
     cfg = _get_config()
     pages = cfg.get("pages") or {}
     if isinstance(pages, dict):

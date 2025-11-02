@@ -39,6 +39,22 @@ if "優先度" in df.columns:
         .sort_values(["_優先度順", "決まり字"], ascending=[True, True])
         .drop(columns=["_優先度順", "優先度"])
     )
+# 並び順: 決まり字の長さ（非空白の文字数）が長いほど上、その上で五十音順（上の句）
+if "決まり字" in df.columns:
+
+    def _count_nonspace(x: object) -> int:
+        s = str(x) if isinstance(x, str) else ""
+        return sum(1 for ch in s if not ch.isspace())
+
+    df = (
+        df.assign(_len=df["決まり字"].apply(_count_nonspace))
+        .sort_values(["_len", "上の句"], ascending=[False, True])
+        .drop(columns=["_len"], errors="ignore")
+    )
+else:
+    # 決まり字がなければ五十音順（上の句）のみ
+    if "上の句" in df.columns:
+        df = df.sort_values(["上の句"])
 
 
 # --- カスタムHTMLテーブルで表示 ---

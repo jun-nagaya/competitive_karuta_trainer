@@ -87,7 +87,7 @@ def render_sidebar(store: StSessionStore) -> None:
             # 新しめの Streamlit では page_link が提供される
             if hasattr(st.sidebar, "page_link"):
                 st.divider()
-                # 公式ルールページ
+                # 公式ルールページ: 画像が無くても遷移可能（ページ側で非表示制御）
                 st.page_link("pages/official_rule.py", label="公式ルール")
                 # 札一覧
                 st.page_link("pages/cards_list.py", label="Tips")
