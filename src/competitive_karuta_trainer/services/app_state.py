@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 from src.competitive_karuta_trainer.app.ports.session_store import SessionStore
-from src.competitive_karuta_trainer.domain import Pair, choose_target_from_grid, init_deck, init_grid
+from src.competitive_karuta_trainer.domain import (
+    Pair,
+    choose_target_from_grid,
+    init_deck,
+    init_grid,
+)
 from src.competitive_karuta_trainer.services import data_access
 from src.competitive_karuta_trainer.services.config_loader import load_default_settings_values
 

@@ -6,7 +6,9 @@ import streamlit as st
 
 from src.competitive_karuta_trainer.adapters.session_store_streamlit import StSessionStore
 from src.competitive_karuta_trainer.domain import Pair
-from src.competitive_karuta_trainer.services.gameplay import handle_cell_click as _svc_handle_cell_click
+from src.competitive_karuta_trainer.services.gameplay import (
+    handle_cell_click as _svc_handle_cell_click,
+)
 
 
 def render_board(on_click: Callable[[int, int], None]) -> None:

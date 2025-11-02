@@ -22,21 +22,20 @@ def render_upload_ui(reset_game: Callable[[list[Pair]], None]) -> None:
     st.header("データセットをアップロード")
     st.markdown(
         """
-        単一CSV形式のみ対応しています。
-        - 必須: CSV 1 枚
-        - 任意: 公式ルール画像（PNG）、設定（config.toml）
+        - 必須: 百人一首データセット（id, 上の句, 下の句, 上の句（ひらがな）, 下の句（ひらがな）, ヒント列を含むcsv）
+        - 任意: 設定（config.toml, ルールページ用画像.png）
         """
     )
     mode = st.radio(
         "方法",
-        options=["ZIP（推奨）", "個別ファイル（CSV 必須、PNG/TOML 任意）"],
+        options=["ZIP（推奨）", "個別ファイル"],
         horizontal=True,
     )
     err_holder = st.empty()
 
     if mode.startswith("ZIP"):
         up_zip = st.file_uploader(
-            "data フォルダを zip にしたファイル",
+            "csv, toml, png を zip にしたファイル",
             type=["zip"],
             accept_multiple_files=False,
         )
@@ -72,7 +71,7 @@ def render_upload_ui(reset_game: Callable[[list[Pair]], None]) -> None:
                 err_holder.error(f"読み込みに失敗しました: {e}")
     else:
         ups = st.file_uploader(
-            "必須: CSV / 任意: PNG, config.toml",
+            "必須: csv / 任意: toml, png",
             type=["csv", "png", "toml"],
             accept_multiple_files=True,
         )

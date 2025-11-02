@@ -4,7 +4,12 @@ import time
 from collections.abc import Iterable
 
 from src.competitive_karuta_trainer.app.ports.session_store import SessionStore
-from src.competitive_karuta_trainer.domain import Pair, choose_target_from_grid, index_by_id, refill_cell
+from src.competitive_karuta_trainer.domain import (
+    Pair,
+    choose_target_from_grid,
+    index_by_id,
+    refill_cell,
+)
 
 # UI コンポーネントからのイベント（クリック、開始、ミュート切替等）を受け取り、
 # セッション状態の更新とドメイン操作を一箇所に集約する。
