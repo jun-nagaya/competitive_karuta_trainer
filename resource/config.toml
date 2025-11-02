@@ -1,0 +1,11 @@
+title = "百人一首"
+
+[pages]
+tips_subheader = "決まり字などの一覧です。"
+official_rule_subheader = ""
+
+[settings]
+rows = 5
+cols = 4
+muted = false
+samples = 30
