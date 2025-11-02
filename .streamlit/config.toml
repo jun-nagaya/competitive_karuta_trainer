@@ -1,0 +1,3 @@
+[client]
+# デフォルトのページナビゲーション（サイドバー上部）を非表示
+showSidebarNavigation = false
