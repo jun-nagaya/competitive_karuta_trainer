@@ -18,12 +18,16 @@ def set_runtime_config(cfg: dict[str, Any] | None) -> None:
 
 def set_runtime_toml_bytes(data: bytes) -> None:
     """アップロードされた TOML バイト列から実行時設定を反映する。"""
+    cfg = None
     try:
-        text = data.decode("utf-8")
-        cfg = tomllib.loads(text)
-        set_runtime_config(cfg if isinstance(cfg, dict) else None)
+        cfg = tomllib.loads(data)  # type: ignore[arg-type]
     except Exception:
-        set_runtime_config(None)
+        try:
+            text = data.decode("utf-8", errors="strict")
+            cfg = tomllib.loads(text)
+        except Exception:
+            cfg = None
+    set_runtime_config(cfg if isinstance(cfg, dict) else None)
 
 
 def _get_config() -> dict[str, Any]:

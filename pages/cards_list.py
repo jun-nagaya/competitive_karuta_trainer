@@ -71,7 +71,7 @@ def _render_upper(upper: object, key: object) -> str:
     k = key if isinstance(key, str) else ""
     if not text or not k:
         return _esc(text)
-    target = len(k)  # 非空白の文字数でカウント
+    target = sum(1 for ch in k if not ch.isspace())
     cnt = 0
     prefix_chars: list[str] = []
     suffix_chars: list[str] = []
