@@ -76,9 +76,11 @@ def main():
         store.get("target_id"),
     )
 
-    # 盤面
-    st.divider()
-    render_board(lambda r, c: handle_click(store, r, c))
+    # 盤面（ゲーム中のみ表示。結果画面では非表示）
+    # target が None のときは全札取得完了＝結果表示中のため、ボードと区切り線を出さない。
+    if target is not None:
+        st.divider()
+        render_board(lambda r, c: handle_click(store, r, c))
 
     # スケジュールされた自動再生（サービスで判定し、UIで描画）
     attempted, audio_bytes, player_id = maybe_get_scheduled_autoplay(store)
